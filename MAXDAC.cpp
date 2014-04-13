@@ -10,8 +10,13 @@
 #include "Arduino.h"
 #endif
 
-#include "MAXDAC.h"
+#include "tiny_support.h"
+
+#ifdef _MAXDAC_TINY
+#include "TinWireM.h"
+#else
 #include "Wire.h"
+#endif
 
 maxdac::maxdac(byte address) //address should be 7 bits
 {

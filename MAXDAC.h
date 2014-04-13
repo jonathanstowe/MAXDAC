@@ -7,8 +7,20 @@
 #ifndef MAXDAC_h
 #define MACDAC_h
 
+
+#if ARDUINO < 100
 #include "WProgram.h"
+#else
+#include <Arduino.h>
+#endif
+
+#include "tiny_support.h"
+
+#ifdef _MAXDAC_TINY
+#include "TinWireM.h"
+#else
 #include "Wire.h"
+#endif
 
 class maxdac
 {
