@@ -12,3 +12,5 @@ Adafruit version of the TinyWireM library at:
     https://github.com/adafruit/TinyWireM
 
 As this has an interface consistent with the more recent Wire library.
+
+The library provides an Arduino interface to the Maxim MAX520/MAX521 octal digital to analogue coverters.
