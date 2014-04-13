@@ -4,7 +4,12 @@
   Released into the public domain.
 */
 
+#if ARDUINO < 100
 #include "WProgram.h"
+#else
+#include "Arduino.h"
+#endif
+
 #include "MAXDAC.h"
 #include "Wire.h"
 
