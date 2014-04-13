@@ -9,7 +9,7 @@
 
 
 #if ARDUINO < 100
-#include "WProgram.h"
+#include <WProgram.h>
 #else
 #include <Arduino.h>
 #endif
@@ -17,9 +17,10 @@
 #include "tiny_support.h"
 
 #ifdef _MAXDAC_TINY
-#include "TinWireM.h"
+#include <USI_TWI_Master.h>
+#include <TinyWireM.h>
 #else
-#include "Wire.h"
+#include <Wire.h>
 #endif
 
 class maxdac

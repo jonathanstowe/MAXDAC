@@ -4,55 +4,46 @@
   Released into the public domain.
 */
 
-#if ARDUINO < 100
-#include "WProgram.h"
-#else
-#include "Arduino.h"
-#endif
+#include "MAXDAC.h"
 
-#include "tiny_support.h"
-
-#ifdef _MAXDAC_TINY
-#include "TinWireM.h"
-#else
-#include "Wire.h"
-#endif
-
+/*
+ * The _MACRO will be the appropriate Wire or TinyWireM
+*/
 maxdac::maxdac(byte address) //address should be 7 bits
 {
-  Wire.begin();
+  _WIRE.begin();
   _address = address;
 }
 
 void maxdac::write(int port, int value) //port is 0-7 for MAX521 and 0-3 for MAX520
 {
-  Wire.beginTransmission(_address); //tell the device we are ready to begin transmitting
-  Wire.send((B00000111 & port)); //use some BitWise "&" to combine the command to write to a port with the port you wish to write to
-  Wire.send(value); //send the actual value to the port
-  Wire.endTransmission(); //stop communication
+  _WIRE.beginTransmission(_address); //tell the device we are ready to begin transmitting
+  _WIRE.write((B00000111 & port)); //use some BitWise "&" to combine the command to write to a port with the port you wish to write to
+  _WIRE.write(value); //write the actual value to the port
+  _WIRE.endTransmission(); //stop communication
 }
 
 void maxdac::reset()
 {
-  Wire.beginTransmission(_address);
-  Wire.send(B00010000); //this command byte tells the registers to reset
-  Wire.send(B00000000); //dummy output byte
-  Wire.endTransmission();
+  _WIRE.beginTransmission(_address);
+  _WIRE.write(B00010000); //this command byte tells the registers to reset
+  _WIRE.write(B00000000); //dummy output byte
+  _WIRE.endTransmission();
 }
 
 void maxdac::shutDown(boolean shutdown)
 {
   if (shutdown == true) {
-    Wire.beginTransmission(_address);
-    Wire.send(B00001000); //this command byte tells the chip to shutdown
-    Wire.send(B00000000); //dummy output byte
-    Wire.endTransmission();
+    _WIRE.beginTransmission(_address);
+    _WIRE.write(B00001000); //this command byte tells the chip to shutdown
+    _WIRE.write(B00000000); //dummy output byte
+    _WIRE.endTransmission();
   }
   else
   {
-    Wire.beginTransmission(_address);
-	Wire.send(B00000000); //this command byte tells the chip to wake up from shutdown
-	Wire.send(B00000000); //dummy output byte
-	Wire.endTransmission();
+    _WIRE.beginTransmission(_address);
+	_WIRE.write(B00000000); //this command byte tells the chip to wake up from shutdown
+	_WIRE.write(B00000000); //dummy output byte
+	_WIRE.endTransmission();
   }
 }

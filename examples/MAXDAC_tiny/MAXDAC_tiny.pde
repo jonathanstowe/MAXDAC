@@ -8,7 +8,12 @@ either High or low.  Check datasheets for these pin numbers.
 
 #include <MAXDAC.h> //Import the MAXDAC library
 
-#include <Wire.h> // The IDE Needs this here.
+// These are required for this to work on the Tiny parts
+// You will need to be using the Adafruit version of TinyWireM library
+// From https://github.com/adafruit/TinyWireM
+#include <USI_TWI_Master.h>
+#include <TinyWireM.h>
+
 
 maxdac dac(B0101000); //start the MAXDAC library under the instance "dac".  The syntax for this command is "maxdac <instance>(<Device address>)
 //the device address is as follows: "B0101{AD0}{AD1}{AD2}.  There is no AD2 on the MAX521, its bit is always 0.
